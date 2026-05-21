@@ -1,0 +1,49 @@
+{
+  // ─── Extends Expo's base TypeScript config ──────────────────────────
+  // Expo provides sensible defaults — we shouldn't fight them.
+  // We override only what we need to add stricter rules and path aliases.
+  "extends": "expo/tsconfig.base",
+
+  "compilerOptions": {
+    // ─── STRICT MODE FLAGS ───────────────────────────────────────────
+    // These flags catch bugs at compile time that would otherwise
+    // crash your app at runtime. A senior developer enables these on
+    // day one of any new project.
+
+    // Forces you to handle null and undefined explicitly.
+    // Without this, calling `.name` on a possibly-null Product silently
+    // fails at runtime instead of erroring at compile time.
+    "strictNullChecks": true,
+
+    // Forces every function parameter to have a type.
+    // Prevents the implicit `any` escape hatch.
+    "noImplicitAny": true,
+
+    // The umbrella flag — turns on all strict checks above plus more.
+    // Always true for production code.
+    "strict": true,
+
+    // Prevents unused variables (uncommented imports, dead code).
+    // Keeps the codebase clean as it grows.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // Forces consistent file path casing across operating systems.
+    // Prevents bugs where code works on Windows but breaks on Linux CI.
+    "forceConsistentCasingInFileNames": true,
+
+    // ─── PATH ALIASES ────────────────────────────────────────────────
+    // Instead of `import '../../../../types/Product'`, write
+    // `import '@types/Product'`. Makes refactoring safer and imports
+    // readable. Must match metro.config.js aliases (we set those next).
+  },
+
+  // ─── INCLUDED FILES ──────────────────────────────────────────────
+  // TypeScript checks every file matched by these patterns.
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}
