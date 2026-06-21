@@ -13,7 +13,8 @@ export type ProductCategory =
 export interface Product {
 
 // --Identification--
- id: string;
+
+ id: string; 
  bcItemNo?: string;
 
  // -- User-facing fields --
@@ -26,13 +27,13 @@ export interface Product {
 
 //  --Inventory--
 // Stock Inventory comes from BC's inventory field during sync.
-// The cart reducer uses this to enforce max. quantity per order.
+// The cart reducer us  es this to enforce max. quantity per order.
 stock: number;
 isAvailable: boolean;
-
+ 
 // --Display--
-images: string;
-allergens: string;
+images: string[];
+allergens: string[];
 
 // --Audit trail--
 createdAt: string;
@@ -95,7 +96,7 @@ export interface OrderItem {
 // A Complete placed order. The most important entity in the app.
 export interface Order {
   id: string;
-  bcSalesOrderNo: string;
+  bcSalesOrderNo?: string;
   userId: string;
   items: OrderItem[]; // from OrderItem 
 
@@ -128,7 +129,7 @@ export interface User{
     id: string;
     email: string;
     fullName: string;
-    phone: String;
+    phone: string;
     defaultAddress?: DeliveryAddress;
     createdAt: string;
 }
