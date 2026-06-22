@@ -36,5 +36,34 @@ export class ApiError extends Error{
     
         Object.setPrototypeOf(this, ApiError.prototype);
     }
+
+    //convenience method = to make the code more readable 
+    // instead of writing - if (error.status === 401 || error.status === 403)
+    // we are writing - if (error.isAuthError())
+    // same logic, far more readable.
+
+    isAuthError(): boolean {
+    // 401: not authenticated (no token or it's expired)
+    // 403: authenticated but not authorised (means not permitted)
+        return this.status === 401 || this.status === 403;
+    }
+    
+    isNotFound(): boolean {
+    // 404: if the response doesn't exist
+        return this.status === 404;
+    }
+
+    isServerError(): boolean {
+    //5xx = backend is broken, it's not client's fault
+    //>=500 catches the error above or equal to 500 etc.
+        return this.status >= 500;
+    }
+
+    isConflict(): boolean {
+    //409 = App's conflict when customers are tyna buy out of stock items.
+    // We'll use "Sold Out" in UI
+        return this.status === 409;
+    }
 }
+
 
