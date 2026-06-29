@@ -15,7 +15,7 @@ export interface ApiResponse<T>{
 
 
 // API error class 
-// The axios response interceptor catches HTTP errors and convert them into an instance of API errors before it reaching the servers and component code. 
+// The axios response interceptor catches HTTP errors that are coming back from the servers and convert them into an instance of API errors before it reaching the service and component code. 
 export class ApiError extends Error{
     status: number;  //Https status code: 400, 401, 403, 404, 409, 500 etc.
     code: string; //to show the different types of error messages (code) to the user.
