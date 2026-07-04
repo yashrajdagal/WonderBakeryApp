@@ -75,6 +75,16 @@ export interface BCSalesOrder {
     // Released = Our "Preparing" or "Ready"
     // Pending = Special workflow for BC state.
     // The adapter maps between these vocabs
-    Status: 'Open' | 'Released' | 'Pending'
-    
+    Status: 'Open' | 'Released' | 'Pending'   
+}
+
+// BC SALES ORDER LINES.
+// Each item in a BC sales order. One order header has mulitple lines.
+// Endpoint: GET /api/v2.0/companies/({companyId})/SalesOrderLines 
+export interface BCSalesOrderLine {
+    // This line is linked to its parent order header.
+    Document_No_: string;
+
+    // Line number within the order: 10, 20, 30...
+    // Why gaps of 10: allows the later insertion between the existing lines
 }
