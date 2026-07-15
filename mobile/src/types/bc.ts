@@ -87,4 +87,46 @@ export interface BCSalesOrderLine {
 
     // Line number within the order: 10, 20, 30...
     // Why gaps of 10: allows the later insertion between the existing lines
+    No_: string;
+    Description: string;
+
+    // Quantity and pricing 
+    Quantity: number;
+    Unit_Price: number;
+
+    //Quantity x Unit_Price - Line Amount 
+    Line_Amount: number;
 }
+
+// BC CUSTOMER.
+// When a user registers on the mobile app. We create a BC Customer.
+// this connects mobile app orders to BC's full customer management.
+export interface BCCustomer {
+    No_: string;        //BC Customer code - it will be stored in User.bcCustomerNo. or id
+    Name: string;       // User.fullName
+    Email: string;      // User.email
+    Phone_No_: string;  // User.phone
+    Address: string;    // Primary address line
+    City: string;       // "Dubai"
+}
+
+// ADAPTER INTERFACES
+// This Contract for translation between BC entities and mobile app types.
+// This is basically "Programming to Interface", not for implementation.
+// The rest of the app depends on the BCProductAdapter - not on the specific class that implements it. This means we can:
+//    - We can swap real implementation for a mock in tests.
+//    - Change the BC field names without touching any component.
+
+export interface BCProductAdapter {
+  // BC entities -> app types
+  // Called during a product sync: for each BCItems from the API.
+  // call toProduct() to get the product to store anc display.
+  toProduct(bcItem: BCItem): Product;
+  // Note - Product is imported from the Domain.ts via barrel export.
+  
+  // App type -> BC entity 
+  // Used when we need to send back any updates to BC (e.g. stock adjustments from app)
+  // Partial<BCItems> means an object with any subset of the BCItem's fields
+  toBCItem(product: Product): Partial<BCItem>;
+}
+
