@@ -2,6 +2,9 @@
 // Mirrors the item entity from bc's ODATA API.
 // Endpoint: GET /api/v2.0/companies/({companyId})/items 
 
+import { Order } from "whatsapp-web.js";
+import { OrderItem, Product } from "./domain";
+
 // when we sync products from BC, the API returns object shaped like this. The BCProductAdapter converts these into my product interface.
 
 export interface BCItem {
@@ -130,3 +133,22 @@ export interface BCProductAdapter {
   toBCItem(product: Product): Partial<BCItem>;
 }
 
+//Translates between BC sales orders and our Order types.
+export interface BCOrderAdapter {
+    // BC Orders (header + lines) -> our order types,
+    // Called when reading history of orders from BC
+    toOrder(
+        header: BCSalesOrder,
+        lines: BCSalesOrderLine[]
+    ): Order;
+
+    toBCSalesOrder(order: Order): {
+      header: Partial<BCSalesOrder>;
+      lines: Partial<BCSalesOrderLine>; 
+    };
+}
+
+// Import our domain types for the adapter interface above.
+// We use 'import type' -> tells typescript this import is type-only.
+// It gets erased completely at the runtime. So, no circular dependencies risks.
+import type { Product, Order } from './domain';
