@@ -15,5 +15,5 @@
 
 // COLOURS 
 export const COLORS = {
-    
+
 }
