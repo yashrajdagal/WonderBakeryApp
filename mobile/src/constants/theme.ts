@@ -15,5 +15,10 @@
 
 // COLOURS 
 export const COLORS = {
-
+      //Brand Palette
+      primary: '#d4a574',      // Warm Gold - Main CTAs, primary buttons.
+      primaryDark: '#a67c52',  // pressed/active state of primary
+      primaryLight: '#6b4423', // Light tint - background, chips
+      secondary: '#6b4423',    // Deep Brown - headings, secondary actions
+      accent: '#e8a87c',       // Peach - badges, highlights, success states 
 }
