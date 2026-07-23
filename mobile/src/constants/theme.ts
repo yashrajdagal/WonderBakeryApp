@@ -21,4 +21,33 @@ export const COLORS = {
       primaryLight: '#6b4423', // Light tint - background, chips
       secondary: '#6b4423',    // Deep Brown - headings, secondary actions
       accent: '#e8a87c',       // Peach - badges, highlights, success states 
+
+      //Neutrals
+      background: '#faf7f2',   // Cream off-white - main screen background
+      surface: '#ffffff',      // Pure white - cards, modals. input backgrounds
+      surfaceAlt: '#f5f0ea',   // Slightly Warmer - alternate card backgrounds
+
+      // Text
+      textPrimary: '#2c1810',   // Near-black with warm tint - headings, body
+      textSecondary: '#6b5b4f', // Mid-tone - subtexts, metadata
+      textTertiary: '#a89b91',  // Light - placeholders, disabled labels
+      textInverse: '#ffffff',   // White texts on dark or black background
+      
+      // Borders
+      border: '#e8dfd3',        // Hairline borders, dividers, input borders
+      borderStrong: '#c8b8a8',  // More visible borders when needed
+
+      // Semantic colours (meaning-bearing)
+      success: '#4a7c59',        // Order delivered, payment confirmed
+      warning: '#e0a458',        // Low stock, pending aaction required
+      error: '#c44545',          // Validation errors, failed request
+      info: '#5b7b9a',           // Informaational Banners
+      
+      // Order Status Colours
+      //This maps to OrderStatus type values, component looks up by status string.
+      // StatusBage component: backgroundColor: COLORS.orderStatus[order.status]
+      orderStatus: {
+        placed: '#5b7b9a',
+        confirmed: '#4a7c59',
+      }
 }
