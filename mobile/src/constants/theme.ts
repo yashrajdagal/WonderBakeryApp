@@ -47,7 +47,28 @@ export const COLORS = {
       //This maps to OrderStatus type values, component looks up by status string.
       // StatusBage component: backgroundColor: COLORS.orderStatus[order.status]
       orderStatus: {
-        placed: '#5b7b9a',
-        confirmed: '#4a7c59',
-      }
+        placed: '#5b7b9a',             // Info Blue - waiting
+        confirmed: '#4a7c59',          // Green - accepted
+        preparing: '#e0a458',          // Amber - in progress
+        ready: '#7cb342',              // Bright green - done, waiting pickup
+        out_for_delivery: '#1976d2',   // Blue - en route
+        delivered: '#388e3c',          // Dark green - completed
+        cancelled: '#9e9e9e'           // Grey - Void
+      },
+} as const; // This will freeze all values of literal types
+
+// TYPOGRAPHY
+// Pre-defined text style objects. Components spread these on Text Styles.
+// usage: <Text style={[TYPOGRAPHY.h2, { color = COLORS.TextPrimary }]}>
+
+//WHY fontweight "as const"
+// React Native's fontweight type is a specific union such ('500', '400') etc
+// not a general string, without 'as const'. Typescript infers it as 'string' 
+// and StyleSheet.create will throw a type error.
+export const TYPOGRAPHY = {
+  display:  { fontSize: 48, fontWeight: '700' as const, lineHeight: 56 },
+  h1: { fontSize: 32, fontWeight: '700' as const, lineHeight: 40},
+  h2: { fontSize: 24, fontWeight: '600' as const, lineHeight: 32}, 
+  h3: { fontSize: 20, fontWeight: '600' as const, lineHeight: 28},
+  h4: { fontSize: 18, fontWeight: '600' as const, lineHeight: 24},
 }
