@@ -1,6 +1,7 @@
 // ─── PRODUCT CATEGORY ───────────────────────────────────────────────────
 
 // Type is like a label alias to describe the behaviour and the shape of data. Such as its properties and methods.
+
 export type ProductCategory =
 | 'Bread'
 | 'Vienno'
