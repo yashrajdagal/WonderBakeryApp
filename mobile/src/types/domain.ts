@@ -28,13 +28,13 @@ export interface Product {
 
 //  --Inventory--
 // Stock Inventory comes from BC's inventory field during sync.
-// The cart reducer us  es this to enforce max. quantity per order.
+// The cart reducer uses this to enforce max. quantity per order.
 stock: number;
 isAvailable: boolean;
  
 // --Display--
 images: string[];
-allergens: string[];
+allergens: string[]; 
 
 // --Audit trail--
 createdAt: string;
