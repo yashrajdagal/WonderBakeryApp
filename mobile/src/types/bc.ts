@@ -13,5 +13,14 @@ export interface BCItem {
    itemCategoryId: string; // ('BREAD', 'VIENNO')
    itemCategoryCode: string; // Maps to ProductCategory Union.
    blocked: boolean;  // if true cannot be sold. Maps to Product.isAvailable.
-
+   inventory: number; // it doesn't mean reserved value is available
+   unitPrice: number; // Selling Price
+   unitCost: number;  // purchasing cost/price of an item
+   baseUnitOfMeasureId: string;   // GUID instructed
+   baseUnitOfMeasureCode: string; // (PC, BOX, KG)
+   lastDateModifedDateTime: string; 
 }
+
+// BC SALES ORDER (response model)
+//Endpoint: GET /api/v2.0/companies/({companyId})/salesOrders
+
