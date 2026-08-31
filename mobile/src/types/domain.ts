@@ -15,8 +15,9 @@ export interface Product {
 
 // --Identification--
 
- id: string; 
- bcItemNo?: string;
+ id: string;        // our own app/database ID
+ bcItemId?: string; // BC's GUID — every v2.0 API call uses this
+ bcItemNumber?: string; // BC's human-readable code, e.g. "BREAD-001"
 
  // -- User-facing fields --
  name: string;
@@ -49,8 +50,9 @@ addedAt: string;
 }
 
 // ─── ORDER STATUS ────────────────────────────────────────────────────────
-// Why this is a State Machine (not just a string):
-// Valid Transactions are strictly based on:
+// NOTE: this union restricts the VOCABULARY, not the transitions.
+// TypeScript cannot stop placed → delivered. Transition enforcement is a
+// backend concern (Month 2) — see docs/learnings.md.
 // Placed > confirmed > preparing > ready > Out for Delivery > Delivered
 // Placed > Cancelled
 // Confirmed > Cancelled 
@@ -65,6 +67,11 @@ export type OrderStatus =
   | 'delivered'         // Customer received it
   | 'cancelled';        // Voided before completion
 
+// UAE has exactly seven emirates. A free-form string invites typos that break delivery-zone matching downstream.
+
+export type UAEEmirate =
+| 'Dubai' | 'Abu Dhabi' | 'Sharjah' | 'Fujairah'
+| 'Ras-al-khaimah' | 'Ajman' | 'Umm Al Quwain';
 
 // ─── DELIVERY ADDRESS ────────────────────────────────────────────────────
 export interface DeliveryAddress {
@@ -73,8 +80,9 @@ export interface DeliveryAddress {
   street: string;         // "Al Sufouh Road"
   area: string;           // "Dubai Marina"
   city: string;           // Almost always "Dubai" but UAE has 7 emirates
-  emirate: string;        // "Dubai" | "Abu Dhabi" | "Sharjah" etc.
+  emirate: UAEEmirate;    // "Dubai" | "Abu Dhabi" | "Sharjah" etc.
   landmark?: string;      // "Next to Spinneys" — optional, helps drivers
+  countryCode: 'AE';
 
   // Optional coordinates for map pin display and routing.
   // Present when user drops a pin on the map; absent when they type manually.
@@ -93,14 +101,21 @@ export interface OrderItem {
                        // from recalculating on every render
 }
 
+// The chosen method says nothing about whether money actually arrived.
+// A cash_on_delivery order sits at 'pending' until the driver collects.
+
+export type PaymentStatus = 
+| 'pending' | 'authorized' | 'paid' | 'failed' | 'refunded';
+
 // ─── ORDER ───────────────────────────────────────────────────────────────
 // A Complete placed order. The most important entity in the app.
 export interface Order {
   id: string;
-  bcSalesOrderNo?: string;
+  bcSalesOrderId?: string;      // BC GUID — used in API endpoints
+  bcSalesOrderNumber?: string;  // e.g. "SO-2026-00042"
   userId: string;
   items: OrderItem[]; // from OrderItem 
-
+  
 
 //--Money--
 // Split into components for receipt transparency.
@@ -118,6 +133,8 @@ export interface Order {
 
 //-- Payment--
     paymentMethod: 'cash_on_delivery' | 'card';
+    paymentStatus: PaymentStatus;
+    paymentReference?: string;    // gateway transaction id - NEVER CARD DATA
 
 //--Audit--
     createdAt: string;

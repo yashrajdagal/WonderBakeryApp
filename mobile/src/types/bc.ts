@@ -117,5 +117,25 @@ export interface BCProductAdapter {
   // BC → domain. Called during catalogue sync.
   // The adapter is where displayName becomes name, itemCategoryCode becomes
   // ProductCategory, and blocked inverts into isAvailable.
-  
+  toProduct(item: BCItem): Product; 
+
+  // NOTE: no toBCItem() here, deliberately.
+  // A customer-facing app has no business writing prices or inventory back
+  // into BC. Those change through posted, authorised BC transactions and a
+  // staff workflow — not through a mobile client. Add a write path only
+  // when a real staff-side requirement exists.
 }
+
+export interface BCOrderAdapter {
+// BC → domain. Header plus its lines become one Order.
+toOrder(header: BCSalesOrder, lines: BCSalesOrderLine[]): Order;
+
+// domain → BC write payloads.
+// Returns an ARRAY of lines: one order has many products.
+toCreatPayload(order: Order): {
+    header: CreateBCSalesOrderPayload;
+    lines: CreateBCSalesOrderLinePayload;
+};
+}
+
+import type { Product, Order } from "./domain";
