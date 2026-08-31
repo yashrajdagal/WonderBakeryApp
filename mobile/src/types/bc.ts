@@ -96,4 +96,26 @@ export interface CreateBCSalesOrderPayload {
   externalDocumentNumber?: string; //Maps to Order.id for reconcilation.
 }
 
-// POST /api/v2.0/companies/({companyId})/salesOrders
+// POST /api/v2.0/companies/({companyId})/salesOrders({id})/salesOrderLines
+export interface CreateBCSalesOrderLinePayload {
+  lineType: 'Item';
+  lineObjectNumber: string;   //Item's number
+  quantity: number;
+  unitPrice: number;
+  description?: string;
+}
+
+//  ADAPTER CONTRACTS 
+// The translation boundary between BC's schema and our domain.
+//
+// WHY INTERFACES, NOT CLASSES, HERE: the rest of the codebase depends on
+// this contract, not on any particular implementation. That lets us swap in
+// a fake adapter for tests, or a different ERP entirely, without touching a
+// single screen or service.
+
+export interface BCProductAdapter {
+  // BC → domain. Called during catalogue sync.
+  // The adapter is where displayName becomes name, itemCategoryCode becomes
+  // ProductCategory, and blocked inverts into isAvailable.
+  
+}
