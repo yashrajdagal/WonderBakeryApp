@@ -5,15 +5,19 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "scheme": "wonderbakery",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "web": {
+      "bundler": "metro"
+    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "predictiveBackGestureEnabled": false
-    },
-    "plugins": [
-      "expo-router",
-      "expo-status-bar"
-    ]
+    }
   }
 }

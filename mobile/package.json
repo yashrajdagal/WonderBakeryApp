@@ -3,7 +3,7 @@
   "description": "The Blank project template includes the minimum dependencies to run and an empty root component.",
   "license": "0BSD",
   "version": "56.0.13",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -11,15 +11,19 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
     "expo": "~56.0.21",
     "expo-constants": "~56.0.25",
     "expo-linking": "~56.0.17",
     "expo-router": "~56.2.20",
     "expo-status-bar": "~56.0.4",
     "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.87.0",
     "react-native": "0.85.3",
     "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.26.0"
+    "react-native-screens": "~4.26.0",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
